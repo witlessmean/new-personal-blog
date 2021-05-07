@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import NavBar from "./components/navigation/Navbar";
 import AdminPage from "./components/auth/AdminPage";
 import Password from "./components/auth/Password";
+import PasswordReset from "./components/auth/PasswordReset";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
         fdfdfdggggggggggggg
         </div>
       </Route>
-      <ProtectedRoute path="/admin-page" component={AdminPage} auth={auth}/>
+      <ProtectedRoute exact path="/admin-page" component={AdminPage} auth={auth}/>
       <Route exact path="/admin-password" component={Password} />
+      <ProtectedRoute exact path="/admin-page/password-reset" component={PasswordReset} auth={auth} />
       </BgImg>
       </Router>
     
