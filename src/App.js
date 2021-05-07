@@ -8,7 +8,7 @@ import PasswordReset from "./components/auth/PasswordReset";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
- 
+ //i can navigate to the auth pages through the browser cause auth always = to true
   const [auth, setAuth] = useState(true)
  
   return (
