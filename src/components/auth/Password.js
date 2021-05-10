@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import styled from "styled-components";
@@ -18,24 +18,10 @@ const Password = ({history}) => {
   const [passwordState, setPasswordState] = useState("");
   const [responseState, setResponseState] = useState("");
   const [err, setErr] = useState(false)
-
   const onInputChange = (e) => {
     e.persist();
     setPasswordState(e.target.value);
   };
-
-  const passwordSubmit = (e) => {
-    e.preventDefault();
-      if(responseState === 'success'){
-        history.push('/admin-page');
-        setErr(false);
-        setPasswordState("");
-      }else{
-        history.push('/admin-password');
-        setErr(true);
-        setPasswordState("");
-      }
-   };
 
   useEffect(() => {
   const abortController = new AbortController();
@@ -52,6 +38,25 @@ const Password = ({history}) => {
   }
 }, [passwordState]);
 
+ const passwordSubmit =  (e) => {
+    e.preventDefault();
+  
+    if(responseState === 'success'){
+        history.push('/admin-page');
+        setErr(false);
+        setPasswordState("");
+      }else{
+        setErr(true);
+        setPasswordState("");
+      }
+   };
+
+const inputRef = useRef(null);
+
+useEffect(() => {
+  inputRef.current.focus();
+}, []);
+
 
 
   return (
@@ -65,6 +70,7 @@ const Password = ({history}) => {
         placeholder="password"
         onChange={onInputChange}
         value={passwordState}
+        ref={inputRef}
       />
       <button type="submit">submit</button>
       {err && <StyledValidationError>Incorrect Password</StyledValidationError> }
